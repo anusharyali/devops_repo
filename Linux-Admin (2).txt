@@ -1,0 +1,658 @@
+Overview of Linux OS
+Datacenter, Servers, Physical and Virtual Machine
+Hypervisor and Cloud
+Installation of Linux OS on EC2 instance
+Basic Linux commands
+Filesystem
+---------------------------------------------------------------------------------------------------------------------------
+User Management
+Delegate the sudo privileges to Regular user
+---------------------------------------------------------------------------------------------------------------------------
+Permissions:
+  * Change Modification
+  * Change ownership
+---------------------------------------------------------------------------------------------------------------------------
+Package Management:
+  * RPM
+  * YUM
+  * APT - Ubuntu
+---------------------------------------------------------------------------------------------------------------------------
+Backup and Restore:
+  * TAR
+  * ZIP
+  * DD
+---------------------------------------------------------------------------------------------------------------------------
+Links:
+  * Soft link
+  * Hard link
+---------------------------------------------------------------------------------------------------------------------------
+Automation of Jobs:
+  * AT job
+  * Crontab
+---------------------------------------------------------------------------------------------------------------------------
+Advanced Linux commands:
+   * Resources
+   * Network
+   * Service
+--------------------------------------------------------------------------------------------------------------------------
+SSH and SCP: 
+   * Password connection
+   * Passwordless connection
+===========================================================================================================================
+DAY-1:
+-----------------------------------------------------------------------------------------------------------------------------
+1. AWS Account creation: https://aws.amazon.com
+      * Email Account - Gmail
+      * Phone number - xxxx  - verification of account
+      * Pan card - xxxxx  - verification of account
+      * Debit/credit card - verification of account
+-----------------------------------------------------------------------------------------------------------------------------
+Note: Always be in single region: 36 regions
+
+2. How to create/Launch an EC2 instance?
+     * EC2 - Elastic compute cloud
+     * Instance - Machine/Server
+
+---------------------------------
+Steps to launch EC2 instance:
+----------------------------------
+a. Name and tags : Webserver/prod/stage/dev/linux-machine
+b. Application and OS Images (Amazon Machine Image) :  Redhat
+c. Instance type : t2.micro - 1 vcpu and 1 GB RAM
+d. Key pair (login) : Password to connect the machine
+        * .pem  - OpenSSH tools
+        * .ppk  - putty
+e. Network settings : Leave as it is
+f. Configure storage : 10 GB HD
+
+Note: All Resources in EC2 dashboard should be "0" except "1" security group.
+-----------------------------------------------------------------------------------------------------------------------------
+3. How to connect an EC2 instance?
+     * AWS Cloud Shell            - .pem
+     * Command prompt/Terminal    - .pem
+     * Putty                      - .ppk
+
+-----------------------------------------------------------------------------------------------------------------------------
+                                                LINUX ADMINISTRATION
+-----------------------------------------------------------------------------------------------------------------------------
+Operating system is an software which runs on hardware for creating/running applications.
+
+---------------------------------
+Operating system versions:
+---------------------------------
+Microsoft
+Windows: XP, Vista, 7.x, 8.x, 10.x, 11.x - Desktop operating system - Personal/Individual use - GUI and CLI
+         2008, 2012, 2016, 2019, 2022, 2025 - Server operating system - Production/Live use - GUI and CLI(recommended)
+
+
+Linux:
+ * Redhat: RHEL - 7.x, 8.x[Stable], 9.x[latest] - Server operating system - Production/Personal use - GUI and CLI(recommended)
+
+ * Debian: Ubuntu - 20.04, 22.04[Stable], 24.04[latest] - Server operating system - Production/Personal use - GUI and CLI(recommended)
+
+ * Other flavours: Centos, Fedora, Kali Linux, Linux mint, Selinux, Susi Linux etc
+ 
+-----------------------------------------------------------------------------------------------------------------------------Server: Server is nothing an machine(Virtual server/machine, physical server/machine, instance, linux box) which provides functionality to use the feature of operating system and application.
+
+
+Datacenter: Datacenter is an secure location/building/room where all the servers(db/application/cache etc) , firewall devices, switches, routers , AC's, coolers , cameras, backup powers etc
+
+Physical Server: Physical server is one which can be accessed directly.
+                 Physical  server has its own resources(cpu, ram, HD)
+
+Virtual Server: Virtual server is one which can be accessed remotely or virtually.
+                Virtual server utilizes resources of physical server
+
+
+Scenario: 1 laptop - 20k/4L
+          1 server - 5L/50L   ---->  10000 servers - cost - crores ?
+
+  * Company - require mechanism to reduce infrastructure cost? 
+
+  * Virtualization: Virtualization is an mechanism which uses the hypervisor software to create virtual machines from physical machine. 
+  eg: hypervisor software - VMware workstation
+                            Oracle virtualization
+
+Cloud: Cloud is an service provider who provide cloud computing services over the internet which can be accessed via web browser.
+       Cloud service providers are AWS, AZURE, GCP, Rackspace, Oracle cloud, Alibaba, Digital ocean, IBM cloud etc
+       Cloud service provider provides services like IAAS, PAAS, SAAS for various industries like software, automobiles, banking, financial institutes, education, health care, ecommerce, govt agencies, social media, individuals etc
+
+   * Server - virtual machine - EC2 instance
+   * Datacenter - Availability zones
+
+Scenario:
+       Company: TCS
+       Client: Myntra
+
+       Contract: website and infrastructure maintainence
+              Normal days - 1000 servers - cost/budget
+              Sales days - 5000 servers - 3 months - cost/budget
+
+TCS raises an concern, what about rest 9 months? 
+
+TCS Datacenter: Initial setup - 10 crores
+                Yearly maintainence cost - 1 crore
+   * Own/Rent Building
+   * Hardware and softwares
+   * Backup power
+   * Labor: cleaning staff, electricians, security guards etc
+   * Hardware engineer
+   * Maintainence - spare parts, servicing etc
+   * Electricity and internet
+   * Redundant datacenter - disaster recovery
+
+
+Cloud: Cloud service providers who provide services "on-demand" - pay as you go model
+       Cloud service provider provides services like IAAS, PAAS, SAAS for various industries like software, automobiles, banking, financial institutes, education, health care, ecommerce, govt agencies, social media, individuals etc
+
+   Yearly Billing cost - 70/80 Lakhs
+
+   * No Own/Rent Building
+   * No Hardware and softwares
+   * No Backup power
+   * No Labor: cleaning staff, electricians, security guards etc
+   * No Hardware engineer
+   * No Maintainence - spare parts, servicing etc
+   * No Electricity and less internet
+   * No Redundant datacenter - disaster recovery
+
+   * Skilled DevOps Engineer with Cloud knowledge
+
+=============================================================================================================================
+Basic Linux Commands:
+
+command --help
+man command
+============================================================================================================================
+1. How to check the Operating system version?
+   command: cat /etc/os-release          // This commands works in all Linux OS flavours
+            cat /etc/redhat-release      // This commands works in Redhat OS
+
+--------------------------------------------------------------------------------------------------------------------------
+2. How to check the date and time in system?
+   command: date
+
+[ec2-user@ip-172-31-9-161 ~]$ date
+Fri Jan 24 04:46:38 AM UTC 2025
+[ec2-user@ip-172-31-9-161 ~]$
+------------------------------------------------------------------------------------------------------------------------
+3. How to create an file in file ?
+   command: touch filename                // Creates an empty file
+------------------------------------------------------------------------------------------------------------------------
+4. How to check status of previous command?
+   command: echo $?
+   0 - success
+   1 or above - failure
+
+echo - print statement
+$? - status of previous command
+
+------------------------------------------------------------------------------------------------------------------------
+5. How to create directory(folder) in linux? 
+   command: mkdir dirname          // make directory
+            mkdir -p dir1/dir2/dir3/dir4  // recusrive directory creation
+-p recursive
+-------------------------------------------------------------------------------------------------------------------------
+6. How to list the files and directories in linux ?
+   command: ls                 // listing all files and directories
+            ls -lrt            // detailed listing of all files and directories
+            ls -lRt            // Recursive detailed listing of all files and directories
+
+-l - long listing
+-r - sorting
+-t - formatting
+-R recursively
+
+Regualar file     Permissions     link          user           group         size      date & time          filename
+-                 rw-r--r--.       1          ec2-user        ec2-user         0        Jan 24 04:48        sample.txt
+
+directory         Permissions     link        user             group          size      date & time          dirname
+d                 rwxr-xr-x.       2          ec2-user         ec2-user        6         Jan 24 04:51         test-dir
+
+-------------------------------------------------------------------------------------------------------------------------
+7. How to switch an directory in linux? 
+   command: cd dirname           // change directory or go inside the directory
+            cd ..                // one directory back
+            cd ../..             // two directories back
+            cd                   // takes to logged in user's home directory
+
+------------------------------------------------------------------------------------------------------------------------
+8. How to check current path(location) in the linux system?
+   command: pwd   // present working directory
+
+----------------------------------------------------------------------------------------------------------------------- 
+9. Home directory:  ~ tidle symbol - This indicates its an home directory of logged in user
+                    $ - This indicates regular/normal user logged in
+                    # - This inidicates root/admin user logged in
+                    whoami - to check which user is logged in
+-----------------------------------------------------------------------------------------------------------------------
+10. How to switch to root user or Regular user?
+    command: sudo su     (OR) sudo su - root      // switch to root account
+             su - username                        // switch to regular account
+
+------------------------------------------------------------------------------------------------------------------------
+11. How to check exit from user account and system? 
+    command: exit
+
+----------------------------------------------------------------------------------------------------------------------
+12. How to clear the screen ?
+    command: clear
+
+----------------------------------------------------------------------------------------------------------------------
+13. How to check the activity performed in the system?
+    command: history
+
+---------------------------------------------------------------------------------------------------------------------
+14. How to add/delete/modify content in the file?
+    command: vi/vim/nano filename         // Text editors
+
+             By default - file will open in read only mode - view 
+             i button - insert mode - add/update/delete content
+             esc button - read only mode
+ 
+             Below commands needs to run in read only mode:(esc button)
+             :w - save
+             :q - quit
+             :wq - save and quit
+
+ 
+             dd - delete an line
+             x - delete an character
+             u - undo/rollback in same session before save and quit
+
+Note: vi - cheat sheet
+--------------------------------------------------------------------------------------------------------------------------
+15. How to display the content of the file?
+    command: cat filename          // display the content of the file
+
+--------------------------------------------------------------------------------------------------------------------------
+16. Redirection operators:  >  - override  - First time, it will add content to the file
+                                            Second time, it will override(remove existing content and add new content)
+
+                            >> - append    - First time, it will add content to the file
+                                            Second time, it will append(add new content on top of existing content)
+
+
+eg: cat > file.txt          
+    interactive mode> type the content
+    interactive mode> type the content  
+    interactive mode> ctrl d   -> save and quit
+
+
+eg: cat >> file.txt          
+    interactive mode> type the content
+    interactive mode> type the content  
+    interactive mode> ctrl d   -> save and quit
+
+
+eg: cat file.txt > sample-file.txt
+    ls -lrt file.txt > ls.out
+    date > date.out
+
+--------------------------------------------------------------------------------------------------------------------------
+17. How to download an software or file from internet?
+    command:  curl -O https://archives.jenkins-ci.org/redhat-stable/jenkins-2.479.3-1.1.noarch.rpm
+              wget https://github.com/AKSarav/SampleWebApp/raw/master/dist/SampleWebApp.war
+
+Note: yum install wget -y
+--------------------------------------------------------------------------------------------------------------------------
+18. How to check location of package install and its configuration locaiton?
+    command: which wget       // Binary location
+             whereis wget     // Binary and configuration location
+
+[root@ip-172-31-15-44 ~]# which wget
+/bin/wget
+[root@ip-172-31-15-44 ~]#   whereis wget
+wget: /usr/bin/wget /usr/share/man/man1/wget.1.gz /usr/share/info/wget.info.gz
+[root@ip-172-31-15-44 ~]#
+---------------------------------------------------------------------------------------------------------------------------
+19. How to delete the files and directories?
+    command: rm filename          // remove file
+             rm -i filename       // -i confirmation yes/no
+             rm -f filename       // -f forcefully without confirmation
+            
+             rmdir dirname        // delete an empty directory
+             rm -rf dir1         // delete recursively main directories/sub-directories and files
+        
+             rm -rf *            // * means everything
+             rm -rf /opt         // delete /opt and content inside /opt
+             rm -rf /opt/*       // delete content inside /opt but not /opt directory itself
+         
+
+Note: we dont have recycle in linux 
+
+=============================================================================================================================
+FileSystem: FileSystem is an writable location for storing the data into the disk.
+
+Windows: C:\drive                 Linux:  / -  root filesystem
+
+Primay disk: Boot disk - operating system 
+/ - root filesystem
+  - /root - home directory of root user
+  - /home - home directory of regular user
+  - /opt - 3rd party tools
+  - /mnt & /tmp - temporary location
+  - /var - logs - system logs/messages/application etc
+  - /dev - devices - disk
+  - /media - videos, images 
+  - /proc - resoources info(cpu ,ram)
+  - /bin - binaries
+  - /lib - libraries
+  - /usr - unix resources( pre-installed softwares)
+  - /boot - OS kernel files, initramfs etc
+  - /etc - system configiuration files
+
+
+Secondary disk: Additional data for Application/Databases
+   * Create an disk(volume)
+   * Attach the disk to machine
+   * Parition the disk into parts -optional
+   * Formatting - convert the disk into software - Write the data into disk
+                - creates blocks - user/inode/journal block - system will write byte by byte data
+   * Create an filesystem - /app/devops
+   * Mount - Mapping the disk with filesystem
+=============================================================================================================================
+User Management:
+=============================================================================================================================
+1. Super/Admin user: root user - most priviledged user - non restricted user
+                     uid - 0
+                     gid - 0
+                     FN/Comment: root
+                     Home directory: /root
+                     SHELL: /bin/bash
+
+2. System user: bin, system, daemon, ping etc - Interact with Kernal OS
+                     uid - 1-999
+                     gid - 1-999
+                     FN/Comment: bin, system, daemon, ping
+                     Home directory: /bin, /system, /daemon, /ping
+                     SHELL: /sbin/nologin
+
+3. Regular user: John, Smith, Tomcat, Sonar etc - Restricted user 
+                     uid - 1000 - so on
+                     gid - 1000 - so on
+                     FN/Comment: John France, Smith Ronald, tomcat, sonar
+                     Home directory: /home/john, /home/smith, /home/tomcat, /home/sonar
+                     SHELL: /bin/bash
+-----------------------------------------------------------------------------------------------------------------------------
+System configuration files:
+-----------------------------------------------------------------------------------------------------------------------------
+1. /etc/passwd: This file contains all the user details except the password details.
+
+username  placeholder   uid        gid      FN/Comment   Home directory       SHELL
+root       :x            :0        :0       :root        :/root             :/bin/bash
+bin        :x            :1        :1       :bin         :/bin              :/sbin/nologin
+ec2-user   :x            :1000     :1000    :Cloud User  :/home/ec2-user    :/bin/bash
+
+--------------------------------------------------------------------------------------------
+2. /etc/shadow: This file contains all the password details and password settings.
+
+username         password                 password settings(chage -l username)
+ec2-user            :!!             :20116:0:99999:7:::
+
+--------------------------------------------------------------------------------------------
+3. /etc/group: This file contains all the group details and users assigned to group.
+
+groupname     placeholder      gid             users assigned to group
+ec2-user        :x            :1000        :
+
+-----------------------------------------------------------------------------------------------------------------------------
+commands: 
+----------------------------------------------------------------------------------------------------------------------------- 
+1. How to create an user ?
+syntax:  useradd username     // create an user
+         eg: useradd john 
+-----------------------------------------------------
+2. How to set or reset password ?
+  syntax:   passwd username     // set or reset password
+            eg: passwd john
+-----------------------------------------------------
+3. How to create an group ?
+    syntax:  groupadd  groupname      // create an group
+             eg: groupadd developers 
+ -----------------------------------------------------  
+4. How to create an group ?         
+  syntax:  usermod -G groupname username      // Assign users to group
+           eg: usermod -G developers john
+          
+-----------------------------------------------------
+           useradd -d "home dir" -s "SHELL" -c "FullName" username      // create an customized user      
+           useradd -d /home/smithfrance -s /bin/sh -c "France Smith" fsmith
+
+-----------------------------------------------------
+           usermod -s "SHELL" -c "FN/comment" username     // Modify user details except username
+           usermod -s /bin/sh -c "John France" john        
+
+-----------------------------------------------------
+           chage -l           // list options for password settings
+           chage -l username  // list the user's password settings
+           chage -M 90 fsmith  // set maximum number of days before password change to MAX_DAYS
+           chage -W 3 fsmith   //  set expiration warning days to WARN_DAYS
+
+-----------------------------------------------------
+           userdel username   // delete an user
+             eg: userdel fsmith
+ 
+           groupdel groupname  // delete an group
+             eg: groupdel developers
+-----------------------------------------------------
+Note: Explore gpasswd command as well: 
+
+
+[root@ip-172-31-1-47 ~]# passwd john
+Changing password for user john.
+New password:
+BAD PASSWORD: The password is shorter than 8 characters
+Retype new password:
+passwd: all authentication tokens updated successfully.
+[root@ip-172-31-1-47 ~]#
+=============================================================================================================================
+Delegate sudo privileges to Regular user:
+=============================================================================================================================
+/etc/sudoers - This file contains all the privileges to perform root level activities without needing the root password.
+
+To access /etc/sudoers file, use visudo command.
+
+command: visudo 
+
+## Allow root to run any commands anywhere
+root    ALL=(ALL)       ALL
+john    ALL=(ALL)       ALL
+
+Before any root level command execution, we need to add sudo as prefix to any command to perform root level actiivities.
+
+sudo yum install wget -y
+[sudo] password for john:
+
+sudo useradd france
+[sudo] password for john:
+=============================================================================================================================
+Permissions: Permissions are given on object(files/directories/Package/Images etc) for users/owners, groups and others.
+
+Change Modification: Permission changes
+
+syntax: chmod [options] [permissions] [object]
+
+read    - view only - content/object    
+write   - add/delete/modify/create - content/object
+execute - run an program/script
+
+             
+read    - r  - 4
+write   - w  - 2
+execute - x  - 1
+
+Lowest permission for object: 400
+Highest permission for object: 777
+
+Default permission for file: 644
+user     group       others
+rw-      r--         r--
+420      400         400
+ 6        4           4
+
+
+Default permission for Directory: 755
+user     group       others
+rwx       r-x        r-x
+421       401        401
+ 7         5          5
+
+syntax: chmod [options] [permissions] [object]
+
+command: chmod 400 file.txt
+         chmod 777 sample.txt
+         chmod 444 sample-new.txt
+         chmod u=rw,g=rw,o=rw new-test.txt
+         chmod +x sample-transaction.txt       // add execute permission
+         chmod -x sample-transaction.txt       // remove execute permission
+
+         chmod 700 sample-dir 
+         chmod 777 test-dor
+         chmod -R 777 dir1           // dir1/dir2/dir3/dir4 - sub directories and files
+
+         chmod -R 400 *        - Give permissions to all
+         chmod -R 400 /opt     - permissions to /opt directory and content inside the /opt directory
+         chmod -R 400 /opt/*   - permissions to only content inside the /opt directory       
+
+-R recursive 
+=============================================================================================================================
+Change Ownership:
+============================================================================================================================
+Transfer the ownership of the object(files/directories/packages/images etc) to users and groups.
+
+syntax: chown [options] [users]:[groups] [object]
+
+command: chown john:john file.txt
+         chown john:root sample.txt
+         chown root:john new-test.txt
+
+         chown john:john test-dor
+         chown -R john:john dir1/     
+
+         chown -R john:john *        - change ownershipp to all
+         chown -R john:john /opt     - change ownershipp to /opt directory and content inside the /opt directory
+         chown -R john:john /opt/*   - change ownershipp to only content inside the /opt directory       
+
+
+-R recursive 
+============================================================================================================================
+Package Management: Software Management
+============================================================================================================================
+Windows: .exe(executable)  -> double click -> follow the instructions
+Linux: .rpm(executable) -> Execute command: rpm: Redhat Package Manager
+                                            yum: Yellow dog update modifier
+
+1. RPM:  Redhat Package Manager
+         RPM way of installation was started in the earlier version of Redhat Linux till 4.x and still we are using it.
+         Using rpm command, we can install/uninstall/upgrade/remove the packages.
+         RPM command allows to perform single package installation at a time.
+         For RPM, we need to download the packages and then install packages.
+         RPM command doesn't resolve any dependencies  i.e. we need to install first dependent package and then install the actual package. 
+          eg: Install -> httpd-2.5-1.1.el9.x86_64.rpm
+                   Error: httpd-tools package not found
+              Install -> httpd-tools-2.5-1.1.el9.x86_64.rpm
+                   Error: httpd-security package not found
+
+         Getting exact compatible package version is difficult and also whether the package will install properly or not.
+        
+Link to downlaod RPM: https://archives.jenkins-ci.org/redhat-stable/
+
+commands: curl -O https://archives.jenkins-ci.org/redhat-stable/jenkins-2.462.1-1.1.noarch.rpm
+          rpm -ivh jenkins-2.462.1-1.1.noarch.rpm   // install rpm package
+          rpm -qa                                   // list all installed packages
+          rpm -qa | grep -i jenkins                 // Filter and list the installed package.
+          rpm -qi jenkins-2.462.1-1.1.noarch        // query information about package
+          rpm -ql jenkins-2.462.1-1.1.noarch        // query list all the locations where package is extracted.
+         
+          curl -O https://archives.jenkins-ci.org/redhat-stable/jenkins-2.462.3-1.1.noarch.rpm
+          rpm -Uvh jenkins-2.462.3-1.1.noarch.rpm     // upgrade package
+          rpm -e jenkins-2.462.3-1.1.noarch           // Erase/uninstall package
+
+
+-i install
+-v verbose(detailed output of command)
+-h hash formatting - % of package installation completion
+-qi - query information
+-qa - query all
+-ql - query list all the locations where package is extracted.
+-U upgrade
+-e erase/uninstall
+
+grep - is an filter for filtering the object(file/directory/package) and its content
+  -i - casesensitive - capital/small letters
+| - pipe - forwards output of one command as input to another command.
+============================================================================================================================
+2. YUM: Yellow dog update  modifier
+        Yum way of installation was started in 5.x version and still we are making use of it.
+        Yum allows us to install more than one package at a time. 
+        Yum allows us to perform all the installation,uninstallation,upgrades etc
+        Using yum, we don't need to download the packages for installations, yum will download automatically from yum repositories and then install the packages.
+        Yum will also resolve , download and install dependencies automatically before installing actual package.
+
+YUM Repositories: /etc/yum.repos.d/ -> .repo files
+
+commands: yum install httpd -y               // Install the latest package
+          yum install httpd-2.5 -y           // Install the specific package version
+          yum list                           // list all installed/uninstalled packages
+          yum list --installed (OR) rpm -qa          // list all installed packages
+          yum list --installed | grep -i httpd (OR)  rpm -qa  | grep -i httpd   // filter and list the installed package
+          yum upgrade httpd -y               // upgrade the package to latest version
+          yum upgrade httpd-2.6 -y           // upgrade the package to specific version        
+          yum remove httpd -y                // remove package
+          yum update -y                      // upgrade all packages up-to-date
+          yum clean all                      // clean all caches and also broken packages
+
+-y confirmation yes/no
+------------------------------
+eg: vi jenkins.repo
+------------------------------
+[jenkins]
+name=description of the repository
+baseurl/mirrorlist=URL of online yum repository/storage location where all packages are stored.
+enabled=0/1
+gpgcheck=0/1
+gpgkeys=///etc/certs/jenkins.key
+
+
+Eg: wget, zip, git, java, maven, bind-utils, net-tools, at etc
+    yum install wget -y 
+    yum zip git -y
+---------------------------------------------------------------------------------------------------
+============================================================================================================================
+3. APT: Advanced packing tool is an package manager for debian operating system.
+        Apt way of installation was started in 5.x version and still we are making use of it.
+        Apt allows us to install more than one package at a time. 
+        Apt allows us to perform all the installation,uninstallation,upgrades etc
+        Using Apt, we don't need to download the packages for installations, Apt will download automatically from yum repositories and then install the packages.
+        Apt will also resolve , download and install dependencies automatically before installing actual package.
+        Extension of package .deb(debain)
+
+Apt Repositories: /etc/apt/sources.list.d/ -> .list files
+
+--------------------------------
+eg: vi ubuntu.sources
+--------------------------------
+Types: deb
+URIs: http://us-east-2.ec2.archive.ubuntu.com/ubuntu/
+Suites: noble noble-updates noble-backports
+Components: main universe restricted multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+
+commands: apt install apache2 -y               // Install the latest package
+          apt install apache2-2.5 -y           // Install the specific package version
+          apt list                             // list all installed/uninstalled packages
+          apt list --installed (OR) rpm -qa          // list all installed packages
+          apt list --installed | grep -i apache2 (OR)  rpm -qa  | grep -i apache2   // filter and list the installed package
+          apt upgrade apache2 -y               // upgrade the package to latest version
+          apt upgrade apache2-2.6 -y           // upgrade the package to specific version        
+          apt remove apache2 -y                // remove package
+          apt update -y                      // upgrade all packages up-to-date
+          apt clean all                      // clean all caches and also broken packages
+
+-y confirmation yes/no
+============================================================================================================================
+
+
+
