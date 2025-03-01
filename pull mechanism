@@ -1,0 +1,22 @@
+ Pull: Pull is an mechanism for downloading the updated changes from remote repository branch to local repository branch.
+
+   command:  git pull origin branch_name
+             git pull -f origin --tags
+             
+origin - is an alias/shortname of the github url
+
+[root@ip-172-31-14-178 aws-automation-repo]# git pull origin main
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+Unpacking objects: 100% (3/3), 933 bytes | 933.00 KiB/s, done.
+From github.com:trainercloud2023/aws-automation-repo
+ * branch            main       -> FETCH_HEAD
+   54f904e..4b708ca  main       -> origin/main
+Updating 54f904e..4b708ca
+Fast-forward
+ pull-mechansim.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 pull-mechansim.txt
+[root@ip-172-31-14-178 aws-automation-repo]#
